@@ -6,8 +6,7 @@ Vagrant.configure("2") do |config|
 	config.ssh.insert_key = false
 	config.vm.box="ubuntu/xenial64"
 	config.vm.box_check_update = false
-	config.vm.provision :shell, inline: "sudo apt-get update && sudo apt-get -y upgrade"
-	config.vm.provision :shell, inline: "sudo snap install conjure-up --classic"
+	config.vm.provision :shell, path: "provisioner.sh"
 	config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
 
 	config.vm.define "master", primary: true do |master|
@@ -17,6 +16,7 @@ Vagrant.configure("2") do |config|
 		master.vm.provider "virtualbox" do |v|
 			v.name = "master"
 		end
+		master.vm.provision :shell, inline: "sudo apt-get -y install kubectl"
 	end
 
 	config.vm.define "node" do |node|
