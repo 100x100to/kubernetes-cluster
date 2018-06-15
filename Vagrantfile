@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
 			v.name = "master"
 		end
 		master.vm.provision :shell, path: "master.sh"
+		master.vm.provision :shell, inline: "kubeadm token create --print-join-command"
 	end
 
 	config.vm.define "node" do |node|
@@ -25,7 +26,6 @@ Vagrant.configure("2") do |config|
 		node.vm.provider "virtualbox" do |v|
 			v.name = "node"
 		end
-		node.vm.provision :shell, path: "nodes.sh"
 	end
 
 end
