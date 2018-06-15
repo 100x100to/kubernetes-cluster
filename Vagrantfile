@@ -6,7 +6,6 @@ Vagrant.configure("2") do |config|
 	config.ssh.insert_key = false
 	config.vm.box="bento/ubuntu-16.04"
 	config.vm.box_check_update = false
-#	config.vm.provision :shell, inline: "sudo snap install conjure-up --classic"
 	config.vm.provision :shell, inline: "sudo apt-get update && sudo apt-get -y upgrade"
 	config.vm.provision :shell, inline: "sudo snap install conjure-up --classic"
 	config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
