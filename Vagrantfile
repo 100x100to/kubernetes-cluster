@@ -8,6 +8,9 @@ Vagrant.configure("2") do |config|
 	config.vm.box_check_update = false
 	config.vm.provision :shell, path: "provisioner.sh"
 	config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+	if Vagrant.has_plugin?("vagrant-cachier")
+		config.cache.scope = :box
+  end
 
 	config.vm.define "master", primary: true do |master|
 		master.vm.hostname = "master"
