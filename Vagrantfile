@@ -20,15 +20,16 @@ Vagrant.configure("2") do |config|
 			v.name = "master"
 		end
 		master.vm.provision :shell, path: "master.sh"
-		master.vm.provision :shell, inline: "kubeadm token create --print-join-command"
+		master.vm.provision :shell, inline: "kubectl get all --namespace=kube-system"
+#		master.vm.provision :shell, inline: "kubeadm token create --print-join-command"
 	end
 
-	config.vm.define "node" do |node|
-		node.vm.hostname = "node"
-		node.vm.network "private_network", ip: "192.168.122.11"
-		node.vm.provider "virtualbox" do |v|
-			v.name = "node"
-		end
-	end
+#	config.vm.define "node" do |node|
+#		node.vm.hostname = "node"
+#		node.vm.network "private_network", ip: "192.168.122.11"
+#		node.vm.provider "virtualbox" do |v|
+#			v.name = "node"
+#		end
+#	end
 
 end
