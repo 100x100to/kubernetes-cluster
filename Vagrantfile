@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
 		master.vm.provider "virtualbox" do |v|
 			v.name = "master"
 		end
-		master.vm.provision :shell, inline: "sudo apt-get -y install kubectl"
+		master.vm.provision :shell, path: "master.sh"
 	end
 
 	config.vm.define "node" do |node|
@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
 		node.vm.provider "virtualbox" do |v|
 			v.name = "node"
 		end
+		node.vm.provision :shell, path: "nodes.sh"
 	end
 
 end
