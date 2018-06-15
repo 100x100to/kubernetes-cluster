@@ -14,6 +14,8 @@ Vagrant.configure("2") do |config|
 		master.vm.provider "virtualbox" do |v|
 			v.name = "master"
 		end
+		master.vm.provision :shell, inline: "sudo dnf update -y"
+		master.vm.provision :shell, inline: "sudo dnf install -y NetworkManager-tui"
 		master.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
 	end
 
@@ -23,6 +25,8 @@ Vagrant.configure("2") do |config|
 		node.vm.provider "virtualbox" do |v|
 			v.name = "node"
 		end
+		node.vm.provision :shell, inline: "sudo dnf update -y"
+		node.vm.provision :shell, inline: "sudo dnf install -y NetworkManager-tui"
 		node.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
 	end
 
